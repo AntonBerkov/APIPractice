@@ -44,3 +44,4 @@ out/
 *.ipr
 *.iws
 /.idea/
+/src/test/resources/test-data.properties
