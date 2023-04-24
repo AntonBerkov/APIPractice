@@ -5,16 +5,21 @@ import model.Creature;
 import io.restassured.response.ResponseBodyExtractionOptions;
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class BattleNetAPITests extends BattleNetAPIBaseTest {
     Map<String, String> requestData;
 
-    @Test
+    @ParameterizedTest
     @Description("Check if response contains given achievement")
-    public void checkGivenAchievement() {
+    @MethodSource("provideAchievements")
+    public void checkGivenAchievement(String achievement) {
         SoftAssertions softAssert = new SoftAssertions();
         requestData = Map.of("namespace", "static-eu", "locale", "en_US");
         List<String> responseBody = initRequest()
@@ -25,9 +30,10 @@ public class BattleNetAPITests extends BattleNetAPIBaseTest {
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .body().path("categories.name");
-        softAssert.assertThat(responseBody.contains("Eye of the Storm")).as("Is response body contains given achievement").isTrue();
+        softAssert.assertThat(responseBody.contains(achievement)).as("Is response body contains given achievement").isTrue();
         softAssert.assertAll();
     }
+
     @Test
     @Description("Check if response contains all languages")
     public void checkIfResponseHasAllLanguages() {
@@ -65,5 +71,15 @@ public class BattleNetAPITests extends BattleNetAPIBaseTest {
         softAssertions.assertThat(youngMastiff.getFamily()).as("Creature Family").isEqualTo("Hound");
         softAssertions.assertThat(youngMastiff.getType()).as("Creature type").isEqualTo("Beast");
         softAssertions.assertAll();
+    }
+
+    private static Stream<Arguments> provideAchievements() {
+        return Stream.of(
+                Arguments.of("Eye of the Storm"),
+                Arguments.of("Warsong Gulch"),
+                Arguments.of("Cataclysm Dungeon"),
+                Arguments.of("Cataclysm Raid"),
+                Arguments.of("Darkmoon Faire")
+        );
     }
 }
