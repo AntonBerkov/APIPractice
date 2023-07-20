@@ -12,6 +12,7 @@ public class Driver {
     }
 
     public static WebDriver getDriver() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Anton_Berkov\\APIPractice\\src\\test\\resources\\chromedriver.exe");
         if (driver == null) {
             driver = new ChromeDriver(new ChromeDriverService.Builder().usingPort(65535).build());
             driver.manage().window().maximize();
