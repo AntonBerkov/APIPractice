@@ -11,7 +11,7 @@ public class Driver {
     }
 
     public static WebDriver getDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Anton_Berkov\\APIPractice\\src\\test\\resources\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "https://github.com/AntonBerkov/GoogleTranslateAPIPractice/blob/6fe9d13a20b602c6a53d82846c6fac3133bd76a4/src/test/resources/drivers/chromedriver.exe");
         if (driver == null) {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
