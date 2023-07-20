@@ -2,6 +2,7 @@ package model;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 
 public class Driver {
 
@@ -12,7 +13,7 @@ public class Driver {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(new ChromeDriverService.Builder().usingPort(65535).build());
             driver.manage().window().maximize();
         }
         return driver;
