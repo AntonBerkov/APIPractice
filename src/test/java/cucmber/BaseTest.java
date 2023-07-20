@@ -9,11 +9,5 @@ public class BaseTest {
 
     static WebDriver driver = getDriver();
 
-    @AfterAll
-    public static void closeBrowser(){
-        driver.manage().deleteAllCookies();
-        driver.quit();
-        driver.close();
-    }
 
 }

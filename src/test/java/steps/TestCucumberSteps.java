@@ -48,5 +48,7 @@ public class TestCucumberSteps {
     @AfterAll
     public static void assertAll(){
         softAssertions.assertAll();
+        driver.manage().deleteAllCookies();
+        driver.quit();
     }
 }
